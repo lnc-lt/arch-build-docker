@@ -1,8 +1,5 @@
 FROM archlinux/base
 
-RUN mkdir -p /build
-WORKDIR "/build"
-
 # buildly custom config for pacman and makepkg
 COPY ./pacman.conf /etc/pacman.conf
 COPY ./makepkg.conf /etc/makepkg.conf
@@ -14,7 +11,9 @@ RUN pacman -Syu --noconfirm base-devel wget sudo devtools
 RUN useradd builduser -m \
  && passwd -d builduser \
  && printf "builduser ALL=(ALL) ALL\n" | tee -a /etc/sudoers \
- && chown -R builduser /build
+
+# Prepare volumes
+RUN mkdir -p /build/{pkg,repo} && chown -R builduser /build/{pkg,repo}
 
 # Switch from root to builduser
 USER builduser
