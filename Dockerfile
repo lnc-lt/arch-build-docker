@@ -10,7 +10,7 @@ RUN pacman -Syu --noconfirm base-devel wget sudo devtools
 # Add builduser with passwordless sudo rights
 RUN useradd builduser -m \
  && passwd -d builduser \
- && printf "builduser ALL=(ALL) ALL\n" | tee -a /etc/sudoers \
+ && printf "builduser ALL=(ALL) ALL\n" | tee -a /etc/sudoers
 
 # Prepare volumes
 RUN mkdir -p /build/{pkg,repo} && chown -R builduser /build/{pkg,repo}
