@@ -13,7 +13,8 @@ RUN useradd builduser -m \
  && printf "builduser ALL=(ALL) ALL\n" | tee -a /etc/sudoers
 
 # Prepare volumes
-RUN mkdir -p /build/{pkg,repo} && chown -R builduser /build/{pkg,repo}
+RUN mkdir -p /build/{pkg,repo} && chown -R builduser /build
+WORKDIR "/build"
 
 # Switch from root to builduser
 USER builduser
